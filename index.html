@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Popcorn Popping Game</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f5f5f5;
+        font-family: Arial, sans-serif;
+      }
+      canvas {
+        background-color: #222;
+        border: 3px solid #444;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+      #game-ui {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      #score,
+      #timer {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+      }
+      #restart-btn {
+        padding: 10px 20px;
+        font-size: 18px;
+        background-color: #f0c030;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      #restart-btn:hover {
+        background-color: #ffca42;
+      }
+      #game-over {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 20px 40px;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <div id="game-ui">
+      <div id="score">Score: 0</div>
+      <div id="timer">Time: 1:00</div>
+      <button id="restart-btn">Restart Game</button>
+    </div>
+    <div id="game-over">
+      <h2>Game Over!</h2>
+      <p id="final-score">Your score: 0</p>
+    </div>
+  </body>
+</html>
