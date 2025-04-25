@@ -71,5 +71,148 @@
       <h2>Game Over!</h2>
       <p id="final-score">Your score: 0</p>
     </div>
+    <img src=""></img>
+
+
+    <script>
+      // Setup
+      const canvas = document.getElementById("gameCanvas");
+      const ctx = canvas.getContext("2d");
+      const gameOver = document.getElementById("game-over");
+      const scoreEl = document.getElementById("score");
+      const timerEl = document.getElementById("timer");
+
+      // Game state
+      let score = 0,
+        time = 60,
+        active = true,
+        lastSpawn = 0;
+      let popcorns = [],
+        timer;
+
+      // Load images
+      const imgUnpopped = new Image();
+      imgUnpopped.src =
+        "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjUiIGN5PSIyNSIgcj0iMjAiIGZpbGw9IiNmMGM0NjAiIHN0cm9rZT0iI2JhOGMzMCIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+";
+
+      const imgPopped = new Image();
+      imgPopped.src =
+        "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE1LDI1IEMyMCwxMCAzMCwxMCAzNSwyNSBDNDAsMTUgNTAsMjAgNDUsMzAgQzUwLDM1IDQwLDQ1IDMwLDQwIEMyNSw1MCAxNSw0MCAxMCwzNSBDMCwzNSA1LDIwIDE1LDI1IFoiIGZpbGw9IiNmZmZmZjAiIHN0cm9rZT0iI2VlZWVlMCIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+";
+
+      // Init/restart game
+      function init() {
+        score = 0;
+        time = 60;
+        active = true;
+        popcorns = [];
+        lastSpawn = 0;
+
+        scoreEl.textContent = "Score: 0";
+        timerEl.textContent = "Time: 1:00";
+        gameOver.style.display = "none";
+
+        // Setup timer
+        clearInterval(timer);
+        timer = setInterval(() => {
+          time--;
+          timerEl.textContent = `Time: ${Math.floor(time / 60)}:${(time % 60)
+            .toString()
+            .padStart(2, "0")}`;
+          if (time <= 0) {
+            active = false;
+            clearInterval(timer);
+            document.getElementById(
+              "final-score"
+            ).textContent = `Your score: ${score}`;
+            gameOver.style.display = "block";
+          }
+        }, 1000);
+      }
+
+      // Main game loop
+      function gameLoop(timestamp) {
+        // Clear and check for spawn
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (active && timestamp - lastSpawn > 1000) {
+          popcorns.push({
+            x: Math.random() * (canvas.width - 50),
+            y: Math.random() * (canvas.height - 50),
+            r: 25,
+            popped: false,
+            progress: 0,
+            remove: false,
+            dx: (Math.random() - 0.5) * 2,
+            dy: (Math.random() - 0.5) * 2,
+          });
+          lastSpawn = timestamp;
+        }
+
+        // Update and draw popcorns
+        for (let i = popcorns.length - 1; i >= 0; i--) {
+          const p = popcorns[i];
+
+          if (!p.popped) {
+            // Move and bounce
+            p.x += p.dx;
+            p.y += p.dy;
+            if (p.x < 0 || p.x > canvas.width - p.r * 2) p.dx *= -1;
+            if (p.y < 0 || p.y > canvas.height - p.r * 2) p.dy *= -1;
+
+            // Draw unpopped
+            ctx.drawImage(imgUnpopped, p.x, p.y, p.r * 2, p.r * 2);
+          } else {
+            // Update pop animation
+            p.progress += 0.05;
+            if (p.progress >= 1) {
+              popcorns.splice(i, 1);
+              continue;
+            }
+
+            // Draw popped
+            const s = 1 + p.progress;
+            ctx.globalAlpha = 1 - p.progress;
+            ctx.drawImage(
+              imgPopped,
+              p.x - (p.r * s - p.r),
+              p.y - (p.r * s - p.r),
+              p.r * 2 * s,
+              p.r * 2 * s
+            );
+            ctx.globalAlpha = 1;
+          }
+        }
+
+        requestAnimationFrame(gameLoop);
+      }
+
+      // Click handler
+      canvas.addEventListener("click", (e) => {
+        if (!active) return;
+
+        const rect = canvas.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+
+        for (const p of popcorns) {
+          if (
+            !p.popped &&
+            Math.hypot(mx - (p.x + p.r), my - (p.y + p.r)) <= p.r
+          ) {
+            p.popped = true;
+            p.progress = 0;
+            scoreEl.textContent = `Score: ${++score}`;
+            break;
+          }
+        }
+      });
+
+      // Restart button
+      document.getElementById("restart-btn").addEventListener("click", init);
+
+      // Start game
+      init();
+      requestAnimationFrame(gameLoop);
+    </script>
   </body>
 </html>
