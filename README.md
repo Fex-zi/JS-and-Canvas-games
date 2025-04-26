@@ -1,1 +1,1 @@
-# popcorn-canvas-js-game
+# canvas-and-js-games
