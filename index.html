@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS and Canvas Games Collection</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        line-height: 1.6;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+        color: #333;
+      }
+      header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #ddd;
+      }
+      h1 {
+        color: #2c3e50;
+      }
+      .game-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .game-card {
+        flex: 1 1 250px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        background-color: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .game-card h2 {
+        color: #3498db;
+        margin-top: 0;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+      }
+      .game-link {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
+      .game-link:hover {
+        background-color: #2980b9;
+      }
+      footer {
+        margin-top: 40px;
+        text-align: center;
+        color: #7f8c8d;
+        font-size: 0.9em;
+        padding-top: 20px;
+        border-top: 1px solid #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>JavaScript and Canvas Games Collection</h1>
+      <p>
+        A collection of fun and interactive browser games built with JavaScript.
+      </p>
+    </header>
+
+    <main>
+      <div class="game-container">
+        <div class="game-card">
+          <h2>Dice Game(Javascript)</h2>
+          <p><strong>Type:</strong> Two-player dice game</p>
+          <p><strong>How to Play:</strong></p>
+          <ul>
+            <li>Players take turns rolling a dice.</li>
+            <li>Each roll adds to the player's current score.</li>
+            <li>
+              If a player rolls a 1, they lose their current score and it
+              becomes the next player's turn.
+            </li>
+            <li>
+              A player can choose to "Hold" to add their current score to their
+              total score and pass the turn.
+            </li>
+            <li>The first player to reach a total score of 30 wins!</li>
+          </ul>
+          <a href="dice/index.html" class="game-link">Play Pig Game</a>
+        </div>
+
+        <div class="game-card">
+          <h2>Guess My Number(Javascript)</h2>
+          <p><strong>Type:</strong> Number guessing game</p>
+          <p><strong>How to Play:</strong></p>
+          <ul>
+            <li>The computer picks a secret number between 1 and 20.</li>
+            <li>Enter your guess and click "Check!" or "Enter Key"</li>
+            <li>
+              The game will tell you if your guess is too high or too low.
+            </li>
+            <li>
+              You start with a score of 20, which decreases with each wrong
+              guess.
+            </li>
+            <li>Try to guess the number with the highest score possible!</li>
+            <li>The highscore is saved between games.</li>
+          </ul>
+          <a href="number-guess/index.html" class="game-link"
+            >Play Guess My Number</a
+          >
+        </div>
+
+        <div class="game-card">
+          <h2>Popcorn Popping Game(Canvas)</h2>
+          <p><strong>Type:</strong> Click and pop game</p>
+          <p><strong>How to Play:</strong></p>
+          <ul>
+            <li>Popcorn kernels appear randomly on the screen.</li>
+            <li>Click on the kernels to pop them and earn points.</li>
+            <li>You have 60 seconds to pop as many kernels as possible.</li>
+            <li>Kernels move around, making them harder to click.</li>
+            <li>Try to get the highest score before time runs out!</li>
+          </ul>
+          <a href="popcorn/index.html" class="game-link">Play Popcorn Game</a>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>Created with JavaScript, HTML, and CSS. Enjoy the games!</p>
+    </footer>
+  </body>
+</html>
