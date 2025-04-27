@@ -29,7 +29,10 @@ const init = function () {
   player0EL.classList.add('player--active');
   player1EL.classList.remove('player--active');
 };
+
 init();
+//console.log();
+
 const switchPlayer = function () {
   document.getElementById(`current--${activePlayer}`).textContent = 0;
   currentScore = 0;
@@ -83,4 +86,5 @@ btnHold.addEventListener('click', function () {
   }
 });
 
+//console.log(btnNew);
 btnNew.addEventListener('click', init);
